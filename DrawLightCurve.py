@@ -15,7 +15,6 @@ class drawLightCurve(object):
         self.duration = duration/TotalTime
         self.changeTime = changeTime/TotalTime
         self.RelativeRadius = RelativeRadius
-        self.depth = depth
         self.firstTransitTime = firstTransitTime/TotalTime
         # self.periodNum = float(TotalTime)/period
         self.x = np.linspace(0, 1, self.pointsNum)
@@ -96,7 +95,7 @@ class drawLightCurve(object):
         return math.pi *R**2 - (Ss1[0] + Ss2[0])
 
 if __name__ == '__main__':
-    curve = drawLightCurve(pointsNum = 2000,period = 10,duration = 1,depth = -1,firstTransitTime = 1.5,TotalTime = 3,RelativeRadius=0.3)
+    curve = drawLightCurve(pointsNum = 2000,period = 10,duration = 1,firstTransitTime = 1.5,TotalTime = 3,RelativeRadius=0.9)
     curve.calc()
     curve.normalize()
 
