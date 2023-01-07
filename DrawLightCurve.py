@@ -8,7 +8,6 @@ class drawLightCurve(object):
     #RelativeRadius is the radius of the planet divided by the radius of the star
     def __init__(self, pointsNum,TotalTime,period,RelativeRadius,duration,firstTransitTime):
         changeTime = duration*(RelativeRadius/(1+RelativeRadius))
-        print('changeTime',changeTime)
         self.pointsNum = pointsNum
         # self.TotalTime = TotalTime
         self.TotalTime = 1
@@ -77,16 +76,19 @@ class drawLightCurve(object):
         Ss1 = sp.integrate.quad(self.quad_single,Ia1,Ib1,args = (af,'Ss1'))
         Ss2 = sp.integrate.quad(self.quad_single,Ia2,Ib2,args = (af,'Ss2'))
         return math.pi *R**2 - (Ss1[0] + Ss2[0])
+    
+    def addNoise(self,noiseLevel):
+        self.transitLine()
 
 if __name__ == '__main__':
     curve = drawLightCurve(pointsNum = 2000,period = 3,duration = 1,firstTransitTime = 1.5,TotalTime = 5,RelativeRadius=0.2)
     curve.calc()
-    curve.normalize()
-
-    plt.figure()
-    # plt.plot(curve.transitLine)
-    plt.plot(curve.realTimeLine,curve.transitLine,'b.',markersize = 1)
-
+    # curve.normalize()
+    
+    # plt.figure()
+    # plt.plot(curve.realTimeLine,curve.transitLine,'b.',markersize = 1)
+    dir = './npData/'
+    np.save(dir+'realTimeLine',curve.realTimeLine)
     # for transitTime in curve.transitTime:
     #     plt.axvline(x = transitTime*curve.pointsNum,color = 'r')
-    plt.show()
+    # plt.show()
